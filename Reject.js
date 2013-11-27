@@ -72,6 +72,7 @@ var Reject = (function (undefined) {
          *     property with that name exists on the Reject object yet.
          */
         'registerRejector': function (rejectorName, comparator, safeMode) {
+            safeMode = safeMode !== undefined ? safeMode : true;
             if( safeMode && this[rejectorName] !== undefined ) {
                 return;
             }
