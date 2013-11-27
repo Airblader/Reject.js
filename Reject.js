@@ -5,7 +5,7 @@ var Reject = (function (undefined) {
         var RejectException = function (message) {
             this.name = 'RejectException';
             this.message = message;
-        }
+        };
 
         RejectException.prototype = new Error();
         RejectException.prototype.toString = function () {
