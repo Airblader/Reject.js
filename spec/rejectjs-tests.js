@@ -37,6 +37,10 @@ describe( 'registerRejector', function () {
     xit( 'can not replace an existing rejector in safe mode', function () {
         // TODO
     } );
+
+    xit( 'can create rejectors with a custom number of input arguments', function () {
+        // TODO
+    } );
 } );
 
 describe( 'always', function () {

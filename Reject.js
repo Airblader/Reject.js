@@ -15,9 +15,28 @@ var Reject = (function (undefined) {
         return RejectException;
     })();
 
-    var createRejector = function (comparator) {
-        return function (input, description) {
-            if( comparator( input ) ) {
+    /**
+     * Creates a new rejector
+     * @param comparator
+     * @param [numberOfInputArguments] Number of arguments expected by the comparator (defaults to 1).
+     */
+    var createRejector = function (comparator/*, numberOfInputArguments*/) {
+        var numberOfInputArguments = arguments[1] !== undefined ? arguments[1] : 1;
+
+        /**
+         * Rejector definition
+         * @param input... variable number of input arguments passed to the comparator
+         * @param [description] optional message used in the thrown exception
+         */
+        return function (/*input...[, description]*/) {
+            var args = Array.prototype.slice.call( arguments );
+            if( args.length !== numberOfInputArguments && args.length !== numberOfInputArguments + 1 ) {
+                throw new RejectException( 'expected ' + numberOfInputArguments + ' input arguments' );
+            }
+
+            var comparatorArgs = Array.prototype.slice.call( args, 0, numberOfInputArguments ),
+                description = args.length !== numberOfInputArguments ? args[args.length - 1] : undefined;
+            if( comparator.apply( this, comparatorArgs ) ) {
                 throw new RejectException( description );
             }
 
@@ -79,9 +98,11 @@ var Reject = (function (undefined) {
         'registerRejector': function (rejectorName, comparator, safeMode) {
             safeMode = safeMode !== undefined ? safeMode : true;
             if( safeMode && this[rejectorName] !== undefined ) {
+                // TODO throw exception in this case
                 return;
             }
 
+            // TODO expose numberOfInputArguments access for custom rejectors
             this[rejectorName] = createRejector( comparator );
         }
     };
