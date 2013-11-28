@@ -56,39 +56,53 @@ var Reject = (function (undefined) {
     };
 
     return {
+        /** Exception thrown if input is rejected by a rejector */
         'RejectException': RejectException,
 
+        /** Will always throw */
         'always': createRejector( function () {
             return true;
         }, 0 ),
+
+        /** Throws if and only if the input is true (strict equality) */
         'ifTrue': createRejector( function (input) {
             return input === true;
         } ),
 
+        /** Throws if and only if the input is false (strict equality) */
         'ifFalse': createRejector( function (input) {
             return input === false;
         } ),
 
+        /** Throws if and only if the input is truthy (lose equality) */
         'ifTruthy': createRejector( function (input) {
             return !!input;
         } ),
 
+        /** Throws if and only if the input is falsy (lose equality) */
         'ifFalsy': createRejector( function (input) {
             return !input;
         } ),
 
+        /** Throws if and only if the length property of the input is 0 */
         'ifEmpty': createRejector( function (input) {
             return input.length === 0;
         } ),
 
+        /** Throws if and only if the length property of the input is not 0 */
         'ifNotEmpty': createRejector( function (input) {
             return input.length !== 0;
         } ),
 
+        /** Throws if the input string is empty or contains only whitespaces */
         'ifBlank': createRejector( function (input) {
             return trim.call( input ).length === 0;
         } ),
 
+        /**
+         * Throws if the input is not a numeric value.
+         * Note that this allows for string inputs that can be parsed to numbers etc.
+         */
         'ifNotNumeric': createRejector( function (input) {
             return isNaN( parseFloat( input ) ) || !isFinite( input );
         } ),
@@ -102,6 +116,7 @@ var Reject = (function (undefined) {
          *     property with that name exists on the Reject object yet.
          */
         'registerRejector': function (rejectorName, comparator, safeMode) {
+            // TODO safe mode should be a global configuration
             safeMode = safeMode !== undefined ? safeMode : true;
             if( safeMode && this[rejectorName] !== undefined ) {
                 // TODO throw exception in this case
