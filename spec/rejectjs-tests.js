@@ -61,217 +61,219 @@ describe( 'Reject', function () {
             } ).toThrow( description );
         } );
     } );
-} );
 
-describe( 'registerRejector', function () {
-    it( 'can create a new rejector', function () {
-        Reject.registerRejector( 'ifNumberIsFourtyTwo', function (input) {
-            return input === 42;
+    describe( 'registerRejector', function () {
+        it( 'can create a new rejector', function () {
+            Reject.registerRejector( 'ifNumberIsFourtyTwo', function (input) {
+                return input === 42;
+            } );
+
+            Reject.ifNumberIsFourtyTwo( -1337 );
+            expect(function () {
+                Reject.ifNumberIsFourtyTwo( 42, description );
+            } ).toThrow( description );
         } );
 
-        Reject.ifNumberIsFourtyTwo( -1337 );
-        expect(function () {
-            Reject.ifNumberIsFourtyTwo( 42, description );
-        } ).toThrow( description );
-    } );
+        xit( 'can replace an existing rejector', function () {
+            // TODO
+        } );
 
-    xit( 'can replace an existing rejector', function () {
-        // TODO
-    } );
+        xit( 'can not replace an existing rejector in safe mode', function () {
+            // TODO
+        } );
 
-    xit( 'can not replace an existing rejector in safe mode', function () {
-        // TODO
-    } );
-
-    xit( 'can create rejectors with a custom number of input arguments', function () {
-        // TODO
+        xit( 'can create rejectors with a custom number of input arguments', function () {
+            // TODO
+        } );
     } );
 } );
 
-describe( 'always', function () {
-    it( 'should throw', function () {
-        expect(function () {
-            Reject.always( description );
-        } ).toThrow( description );
-    } );
-} );
-
-describe( 'ifTrue', function () {
-    it( 'should pass for false', function () {
-        Reject.ifTrue( false );
+describe( 'Rejector', function () {
+    describe( 'always', function () {
+        it( 'should throw', function () {
+            expect(function () {
+                Reject.always( description );
+            } ).toThrow( description );
+        } );
     } );
 
-    it( 'should pass for truthy value other than true', function () {
-        var truthy = 'I am truthy';
-        expect( truthy ).toBeTruthy();
+    describe( 'ifTrue', function () {
+        it( 'should pass for false', function () {
+            Reject.ifTrue( false );
+        } );
 
-        Reject.ifTrue( truthy );
+        it( 'should pass for truthy value other than true', function () {
+            var truthy = 'I am truthy';
+            expect( truthy ).toBeTruthy();
+
+            Reject.ifTrue( truthy );
+        } );
+
+        it( 'should pass for falsy value other than false', function () {
+            var falsy = '';
+            expect( falsy ).toBeFalsy();
+
+            Reject.ifTrue( falsy );
+        } );
+
+        it( 'should throw for true', function () {
+            expect(function () {
+                Reject.ifTrue( true, description );
+            } ).toThrow( description );
+        } );
     } );
 
-    it( 'should pass for falsy value other than false', function () {
-        var falsy = '';
-        expect( falsy ).toBeFalsy();
+    describe( 'ifFalse', function () {
+        it( 'should pass for true', function () {
+            Reject.ifFalse( true );
+        } );
 
-        Reject.ifTrue( falsy );
+        it( 'should pass for truthy value other than true', function () {
+            var truthy = 'I am truthy';
+            expect( truthy ).toBeTruthy();
+
+            Reject.ifFalse( truthy );
+        } );
+
+        it( 'should pass for falsy value other than false', function () {
+            var falsy = '';
+            expect( falsy ).toBeFalsy();
+
+            Reject.ifFalse( falsy );
+        } );
+
+        it( 'should throw for false', function () {
+            expect(function () {
+                Reject.ifFalse( false, description );
+            } ).toThrow( description );
+        } );
     } );
 
-    it( 'should throw for true', function () {
-        expect(function () {
-            Reject.ifTrue( true, description );
-        } ).toThrow( description );
-    } );
-} );
+    describe( 'ifTruthy', function () {
+        var description = 'Exception thrown for ifTruthy';
 
-describe( 'ifFalse', function () {
-    it( 'should pass for true', function () {
-        Reject.ifFalse( true );
-    } );
+        it( 'should pass for false', function () {
+            Reject.ifTruthy( false );
+        } );
 
-    it( 'should pass for truthy value other than true', function () {
-        var truthy = 'I am truthy';
-        expect( truthy ).toBeTruthy();
+        it( 'should throw for truthy value other than true', function () {
+            var truthy = 'I am truthy';
+            expect( truthy ).toBeTruthy();
 
-        Reject.ifFalse( truthy );
-    } );
+            expect(function () {
+                Reject.ifTruthy( truthy, description );
+            } ).toThrow( description );
+        } );
 
-    it( 'should pass for falsy value other than false', function () {
-        var falsy = '';
-        expect( falsy ).toBeFalsy();
+        it( 'should pass for falsy value other than false', function () {
+            var falsy = '';
+            expect( falsy ).toBeFalsy();
 
-        Reject.ifFalse( falsy );
-    } );
+            Reject.ifTruthy( falsy );
+        } );
 
-    it( 'should throw for false', function () {
-        expect(function () {
-            Reject.ifFalse( false, description );
-        } ).toThrow( description );
-    } );
-} );
-
-describe( 'ifTruthy', function () {
-    var description = 'Exception thrown for ifTruthy';
-
-    it( 'should pass for false', function () {
-        Reject.ifTruthy( false );
+        it( 'should throw for true', function () {
+            expect(function () {
+                Reject.ifTruthy( true, description );
+            } ).toThrow( description );
+        } );
     } );
 
-    it( 'should throw for truthy value other than true', function () {
-        var truthy = 'I am truthy';
-        expect( truthy ).toBeTruthy();
+    describe( 'ifFalsy', function () {
+        it( 'should pass for true', function () {
+            Reject.ifFalsy( true );
+        } );
 
-        expect(function () {
-            Reject.ifTruthy( truthy, description );
-        } ).toThrow( description );
+        it( 'should pass for truthy value other than true', function () {
+            var truthy = 'I am truthy';
+            expect( truthy ).toBeTruthy();
+
+            Reject.ifFalsy( truthy );
+        } );
+
+        it( 'should throw for falsy value other than false', function () {
+            var falsy = '';
+            expect( falsy ).toBeFalsy();
+
+            expect(function () {
+                Reject.ifFalsy( falsy, description );
+            } ).toThrow( description );
+        } );
+
+        it( 'should throw for false', function () {
+            expect(function () {
+                Reject.ifFalsy( false, description );
+            } ).toThrow( description );
+        } );
     } );
 
-    it( 'should pass for falsy value other than false', function () {
-        var falsy = '';
-        expect( falsy ).toBeFalsy();
+    describe( 'ifEmpty', function () {
+        it( 'should pass for non-empty string', function () {
+            Reject.ifEmpty( 'I am not empty' );
+        } );
 
-        Reject.ifTruthy( falsy );
+        it( 'should pass for non-empty array', function () {
+            Reject.ifEmpty( ['I', 'am', 'not', 'empty'] );
+        } );
+
+        it( 'should throw for empty string', function () {
+            expect(function () {
+                Reject.ifEmpty( '', description );
+            } ).toThrow( description );
+        } );
+
+        it( 'should throw for empty array', function () {
+            expect(function () {
+                Reject.ifEmpty( [], description );
+            } ).toThrow( description );
+        } );
     } );
 
-    it( 'should throw for true', function () {
-        expect(function () {
-            Reject.ifTruthy( true, description );
-        } ).toThrow( description );
-    } );
-} );
+    describe( 'ifNotEmpty', function () {
+        it( 'should pass for empty string', function () {
+            Reject.ifNotEmpty( '' );
+        } );
 
-describe( 'ifFalsy', function () {
-    it( 'should pass for true', function () {
-        Reject.ifFalsy( true );
-    } );
+        it( 'should pass for empty array', function () {
+            Reject.ifNotEmpty( [] );
+        } );
 
-    it( 'should pass for truthy value other than true', function () {
-        var truthy = 'I am truthy';
-        expect( truthy ).toBeTruthy();
+        it( 'should throw for non-empty string', function () {
+            expect(function () {
+                Reject.ifNotEmpty( 'I am not empty', description );
+            } ).toThrow( description );
+        } );
 
-        Reject.ifFalsy( truthy );
-    } );
-
-    it( 'should throw for falsy value other than false', function () {
-        var falsy = '';
-        expect( falsy ).toBeFalsy();
-
-        expect(function () {
-            Reject.ifFalsy( falsy, description );
-        } ).toThrow( description );
+        it( 'should throw for non-empty array', function () {
+            expect(function () {
+                Reject.ifNotEmpty( ['I', 'am', 'not', 'empty'], description );
+            } ).toThrow( description );
+        } );
     } );
 
-    it( 'should throw for false', function () {
-        expect(function () {
-            Reject.ifFalsy( false, description );
-        } ).toThrow( description );
-    } );
-} );
+    describe( 'ifBlank', function () {
+        it( 'should pass for non-empty string', function () {
+            Reject.ifBlank( 'I am not empty' );
+        } );
 
-describe( 'ifEmpty', function () {
-    it( 'should pass for non-empty string', function () {
-        Reject.ifEmpty( 'I am not empty' );
-    } );
+        it( 'should pass for non-empty string with leading whitespace', function () {
+            Reject.ifBlank( ' I am not empty' );
+        } );
 
-    it( 'should pass for non-empty array', function () {
-        Reject.ifEmpty( ['I', 'am', 'not', 'empty'] );
-    } );
+        it( 'should pass for non-empty string with trailing whitespace', function () {
+            Reject.ifBlank( 'I am not empty ' );
+        } );
 
-    it( 'should throw for empty string', function () {
-        expect(function () {
-            Reject.ifEmpty( '', description );
-        } ).toThrow( description );
-    } );
+        it( 'should throw for empty string', function () {
+            expect(function () {
+                Reject.ifBlank( '', description );
+            } ).toThrow( description );
+        } );
 
-    it( 'should throw for empty array', function () {
-        expect(function () {
-            Reject.ifEmpty( [], description );
-        } ).toThrow( description );
-    } );
-} );
-
-describe( 'ifNotEmpty', function () {
-    it( 'should pass for empty string', function () {
-        Reject.ifNotEmpty( '' );
-    } );
-
-    it( 'should pass for empty array', function () {
-        Reject.ifNotEmpty( [] );
-    } );
-
-    it( 'should throw for non-empty string', function () {
-        expect(function () {
-            Reject.ifNotEmpty( 'I am not empty', description );
-        } ).toThrow( description );
-    } );
-
-    it( 'should throw for non-empty array', function () {
-        expect(function () {
-            Reject.ifNotEmpty( ['I', 'am', 'not', 'empty'], description );
-        } ).toThrow( description );
-    } );
-} );
-
-describe( 'ifBlank', function () {
-    it( 'should pass for non-empty string', function () {
-        Reject.ifBlank( 'I am not empty' );
-    } );
-
-    it( 'should pass for non-empty string with leading whitespace', function () {
-        Reject.ifBlank( ' I am not empty' );
-    } );
-
-    it( 'should pass for non-empty string with trailing whitespace', function () {
-        Reject.ifBlank( 'I am not empty ' );
-    } );
-
-    it( 'should throw for empty string', function () {
-        expect(function () {
-            Reject.ifBlank( '', description );
-        } ).toThrow( description );
-    } );
-
-    it( 'should throw for non-empty string with whitespaces only', function () {
-        expect(function () {
-            Reject.ifBlank( ' ', description );
-        } ).toThrow( description );
+        it( 'should throw for non-empty string with whitespaces only', function () {
+            expect(function () {
+                Reject.ifBlank( ' ', description );
+            } ).toThrow( description );
+        } );
     } );
 } );
