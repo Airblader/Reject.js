@@ -52,10 +52,9 @@ var Reject = (function (undefined) {
     return {
         'RejectException': RejectException,
 
-        // TODO this should not take any arguments
-        'always': createRejector( function (/*input*/) {
+        'always': createRejector( function () {
             return true;
-        } ),
+        }, 0 ),
         'ifTrue': createRejector( function (input) {
             return input === true;
         } ),

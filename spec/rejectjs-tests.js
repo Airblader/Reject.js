@@ -19,13 +19,13 @@ describe( 'Reject', function () {
 
     it( 'works with a custom description', function () {
         expect(function () {
-            Reject.always( true, description );
+            Reject.always( description );
         } ).toThrow( description );
     } );
 
     it( 'works without a custom description', function () {
         expect(function () {
-            Reject.always( true );
+            Reject.always();
         } ).toThrow( '<no description>' );
     } );
 } );
@@ -56,21 +56,9 @@ describe( 'registerRejector', function () {
 } );
 
 describe( 'always', function () {
-    it( 'should throw for true', function () {
+    it( 'should throw', function () {
         expect(function () {
-            Reject.always( true, description );
-        } ).toThrow( description );
-    } );
-
-    it( 'should throw for false', function () {
-        expect(function () {
-            Reject.always( false, description );
-        } ).toThrow( description );
-    } );
-
-    it( 'should throw for empty string', function () {
-        expect(function () {
-            Reject.always( '', description );
+            Reject.always( description );
         } ).toThrow( description );
     } );
 } );
