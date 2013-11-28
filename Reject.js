@@ -112,11 +112,22 @@ var Reject = (function (undefined) {
             this[rejectorName] = createRejector( comparator );
         },
 
+        /**
+         * Activate Reject
+         * In active mode, Reject is allowed to throw exceptions if the validation in a rejector fails.
+         * Note that this is a global configuration that is evaluated at call time of the rejector.
+         */
         'on': function () {
             isOn = true;
             return this;
         },
 
+        /**
+         * Deactivate Reject
+         * In inactive mode, Reject will not throw any exceptions – in other words, Reject has no effect.
+         * This mode can be used if you want to use Reject only for testing purposes.
+         * Note that this is a global configuration that is evaluated at call time of the rejector.
+         */
         'off': function () {
             isOn = false;
             return this;
