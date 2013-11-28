@@ -33,6 +33,9 @@ var Reject = (function (undefined) {
     return {
         'RejectException': RejectException,
 
+        'always': createRejector( function (/*input*/) {
+            return true;
+        } ),
         'ifTrue': createRejector( function (input) {
             return input === true;
         } ),

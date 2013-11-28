@@ -39,6 +39,26 @@ describe( 'registerRejector', function () {
     } );
 } );
 
+describe( 'always', function () {
+    it( 'should throw for true', function () {
+        expect(function () {
+            Reject.always( true, description );
+        } ).toThrow( description );
+    } );
+
+    it( 'should throw for false', function () {
+        expect(function () {
+            Reject.always( false, description );
+        } ).toThrow( description );
+    } );
+
+    it( 'should throw for empty string', function () {
+        expect(function () {
+            Reject.always( '', description );
+        } ).toThrow( description );
+    } );
+} );
+
 describe( 'ifTrue', function () {
     it( 'should pass for false', function () {
         Reject.ifTrue( false );
