@@ -4,12 +4,12 @@ var Reject = (function (undefined) {
     var RejectException = (function () {
         var RejectException = function (message) {
             this.name = 'RejectException';
-            this.message = message;
+            this.message = message || '<no description>';
         };
 
         RejectException.prototype = new Error();
         RejectException.prototype.toString = function () {
-            return this.name + ': ' + (this.message || '<no description>');
+            return this.name + ': ' + this.message;
         };
 
         return RejectException;
@@ -52,6 +52,7 @@ var Reject = (function (undefined) {
     return {
         'RejectException': RejectException,
 
+        // TODO this should not take any arguments
         'always': createRejector( function (/*input*/) {
             return true;
         } ),

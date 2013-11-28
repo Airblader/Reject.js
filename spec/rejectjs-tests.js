@@ -16,6 +16,18 @@ describe( 'Reject', function () {
     it( 'can chain rejectors', function () {
         Reject.ifTrue( false ).ifFalse( true );
     } );
+
+    it( 'works with a custom description', function () {
+        expect(function () {
+            Reject.always( true, description );
+        } ).toThrow( description );
+    } );
+
+    it( 'works without a custom description', function () {
+        expect(function () {
+            Reject.always( true );
+        } ).toThrow( '<no description>' );
+    } );
 } );
 
 describe( 'registerRejector', function () {
