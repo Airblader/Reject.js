@@ -63,23 +63,59 @@ describe( 'Reject', function () {
     } );
 
     describe( 'registerRejector', function () {
+        var i = 1,
+            rejectorName;
+        beforeEach( function () {
+            rejectorName = 'custom' + (i++);
+        } );
+
         it( 'can create a new rejector', function () {
-            Reject.registerRejector( 'ifNumberIsFourtyTwo', function (input) {
+            Reject.registerRejector( rejectorName, function (input) {
                 return input === 42;
             } );
 
-            Reject.ifNumberIsFourtyTwo( -1337 );
+            Reject[rejectorName]( -1337 );
             expect(function () {
-                Reject.ifNumberIsFourtyTwo( 42, description );
+                Reject[rejectorName]( 42, description );
             } ).toThrow( description );
         } );
 
-        xit( 'can replace an existing rejector', function () {
-            // TODO
+        it( 'can replace an existing rejector', function () {
+            // TODO use numberOfInputArguments = 0 when it is exposed
+            Reject.registerRejector( rejectorName, function () {
+                return true;
+            } );
+
+            // sanity check
+            expect(function () {
+                Reject[rejectorName]( true, description );
+            } ).toThrow( description );
+
+            Reject.registerRejector( rejectorName, function () {
+                return false;
+            }, false );
+
+            Reject[rejectorName]( true, description );
         } );
 
-        xit( 'can not replace an existing rejector in safe mode', function () {
-            // TODO
+        it( 'can not replace an existing rejector in safe mode', function () {
+            // TODO use numberOfInputArguments = 0 when it is exposed
+            Reject.registerRejector( rejectorName, function () {
+                return true;
+            } );
+
+            // sanity check
+            expect(function () {
+                Reject[rejectorName]( true, description );
+            } ).toThrow( description );
+
+            Reject.registerRejector( rejectorName, function () {
+                return false;
+            }, true );
+
+            expect(function () {
+                Reject[rejectorName]( true, description );
+            } ).toThrow( description );
         } );
 
         xit( 'can create rejectors with a custom number of input arguments', function () {
