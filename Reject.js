@@ -1,6 +1,8 @@
 var Reject = (function (undefined) {
     'use strict';
 
+    var isOn = true;
+
     var RejectException = (function () {
         var RejectException = function (message) {
             this.name = 'RejectException';
@@ -29,6 +31,10 @@ var Reject = (function (undefined) {
          * @param [description] optional message used in the thrown exception
          */
         return function (/*input...[, description]*/) {
+            if( !isOn ) {
+                return;
+            }
+
             var args = Array.prototype.slice.call( arguments );
             if( args.length !== numberOfInputArguments && args.length !== numberOfInputArguments + 1 ) {
                 throw new RejectException( 'expected ' + numberOfInputArguments + ' input arguments' );
@@ -104,6 +110,16 @@ var Reject = (function (undefined) {
 
             // TODO expose numberOfInputArguments access for custom rejectors
             this[rejectorName] = createRejector( comparator );
+        },
+
+        'on': function () {
+            isOn = true;
+            return this;
+        },
+
+        'off': function () {
+            isOn = false;
+            return this;
         }
     };
 })();

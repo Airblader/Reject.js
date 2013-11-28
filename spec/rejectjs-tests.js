@@ -1,4 +1,7 @@
 var description = 'Test-Dummy Description for Assertions';
+beforeEach( function () {
+    Reject.on();
+} );
 
 describe( 'RejectException', function () {
     it( 'can be thrown', function () {
@@ -27,6 +30,36 @@ describe( 'Reject', function () {
         expect(function () {
             Reject.always();
         } ).toThrow( '<no description>' );
+    } );
+
+    describe( 'off', function () {
+        it( 'prevents throwing', function () {
+            Reject.off().always();
+        } );
+
+        it( 'is idempotent', function () {
+            Reject.off().off().always();
+        } );
+    } );
+
+    describe( 'on', function () {
+        it( 'allows throwing', function () {
+            expect(function () {
+                Reject.on().always( description );
+            } ).toThrow( description );
+        } );
+
+        it( 'is idempotent', function () {
+            expect(function () {
+                Reject.on().on().always( description );
+            } ).toThrow( description );
+        } );
+
+        it( 'overwrites off', function () {
+            expect(function () {
+                Reject.off().on().always( description );
+            } ).toThrow( description );
+        } );
     } );
 } );
 
