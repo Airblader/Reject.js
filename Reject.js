@@ -20,6 +20,8 @@ var Reject = (function (undefined) {
             if( comparator( input ) ) {
                 throw new RejectException( description );
             }
+
+            return this;
         };
     };
 

@@ -12,6 +12,12 @@ describe( 'RejectException', function () {
     } );
 } );
 
+describe( 'Reject', function () {
+    it( 'can chain rejectors', function () {
+        Reject.ifTrue( false ).ifFalse( true );
+    } );
+} );
+
 describe( 'registerRejector', function () {
     it( 'can create a new rejector', function () {
         Reject.registerRejector( 'ifNumberIsFourtyTwo', function (input) {
@@ -24,11 +30,11 @@ describe( 'registerRejector', function () {
         } ).toThrow( description );
     } );
 
-    it( 'can replace an existing rejector', function () {
+    xit( 'can replace an existing rejector', function () {
         // TODO
     } );
 
-    it( 'can not replace an existing rejector in safe mode', function () {
+    xit( 'can not replace an existing rejector in safe mode', function () {
         // TODO
     } );
 } );
