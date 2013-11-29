@@ -109,6 +109,26 @@ var Reject = (function (undefined) {
             return input !== null;
         } ),
 
+        /** Throws if and only if the input is undefined */
+        'ifUndefined': createRejector( function (input) {
+            return input === undefined;
+        } ),
+
+        /** Throws if and only if the input is not undefined */
+        'ifNotUndefined': createRejector( function (input) {
+            return input !== undefined;
+        } ),
+
+        /** Throws if and only if left and right are equal (strict equality) */
+        'ifEquals': createRejector( function (left, right) {
+            return left === right;
+        }, 2 ),
+
+        /** Throws if and only if left and right are not equal (strict equality) */
+        'ifNotEquals': createRejector( function (left, right) {
+            return left !== right;
+        }, 2 ),
+
         /**
          * Throws if the input is not a numeric value.
          * Note that this allows for string inputs that can be parsed to numbers etc.

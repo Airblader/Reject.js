@@ -316,6 +316,107 @@ describe( 'Rejector', function () {
         } );
     } );
 
+    describe( 'ifUndefined', function () {
+        it( 'passes for null', function () {
+            Reject.ifUndefined( null );
+        } );
+
+        it( 'passes for an empty string', function () {
+            Reject.ifUndefined( '' );
+        } );
+
+        it( 'throws for undefined', function () {
+            expect(function () {
+                Reject.ifUndefined( undefined, description );
+            } ).toThrow( description );
+        } );
+    } );
+
+    describe( 'ifNotUndefined', function () {
+        it( 'passes for undefined', function () {
+            Reject.ifNotUndefined( undefined );
+        } );
+
+        it( 'throws for null', function () {
+            expect(function () {
+                Reject.ifNotUndefined( null, description );
+            } ).toThrow( description );
+        } );
+
+        it( 'throws for an empty string', function () {
+            expect(function () {
+                Reject.ifNotUndefined( '', description );
+            } ).toThrow( description );
+        } );
+    } );
+
+    describe( 'ifEquals', function () {
+        it( 'passes for different numbers', function () {
+            Reject.ifEquals( 42, 1337 );
+        } );
+
+        it( 'passes for different strings', function () {
+            Reject.ifEquals( 'Hello', 'World' );
+        } );
+
+        it( 'passes for different objects with same content', function () {
+            Reject.ifEquals( { foo: 'bar' }, { foo: 'bar' } );
+        } );
+
+        it( 'throws for same numbers', function () {
+            expect(function () {
+                Reject.ifEquals( 42, 42, description );
+            } ).toThrow( description );
+        } );
+
+        it( 'throws for same strings', function () {
+            expect(function () {
+                Reject.ifEquals( 'GLaDOS is to blame', 'GLaDOS is to blame', description );
+            } ).toThrow( description );
+        } );
+
+        it( 'throws for same object', function () {
+            var someObject = { foo: 'bar' };
+
+            expect(function () {
+                Reject.ifEquals( someObject, someObject, description );
+            } ).toThrow( description );
+        } );
+    } );
+
+    describe( 'ifNotEquals', function () {
+        it( 'passes for same numbers', function () {
+            Reject.ifNotEquals( 42, 42 );
+        } );
+
+        it( 'passes for same strings', function () {
+            Reject.ifNotEquals( 'The cake is a lie', 'The cake is a lie' );
+        } );
+
+        it( 'passes for same object', function () {
+            var someObject = { foo: 'bar' };
+            Reject.ifNotEquals( someObject, someObject );
+        } );
+
+        it( 'throws for different numbers', function () {
+            expect(function () {
+                Reject.ifNotEquals( 42, 1337, description );
+            } ).toThrow( description );
+        } );
+
+        it( 'throws for different strings', function () {
+            expect(function () {
+                Reject.ifNotEquals( 'Hello', 'World', description );
+            } ).toThrow( description );
+        } );
+
+        it( 'throws for different objects with same content', function () {
+            expect(function () {
+                Reject.ifNotEquals( { foo: 'bar' }, { foo: 'bar' }, description );
+            } ).toThrow( description );
+        } );
+    } );
+
     describe( 'ifNotNumeric', function () {
         // Test cases taken from http://stackoverflow.com/questions/18082/validate-numbers-in-javascript-isnumeric
 
