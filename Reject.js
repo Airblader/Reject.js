@@ -130,11 +130,12 @@ var Reject = (function (undefined) {
             safeMode = safeMode !== undefined ? safeMode : true;
             if( safeMode && this[rejectorName] !== undefined ) {
                 // TODO throw exception in this case
-                return;
+                return this;
             }
 
             // TODO expose numberOfInputArguments access for custom rejectors
             this[rejectorName] = createRejector( comparator );
+            return this;
         },
 
         /**
