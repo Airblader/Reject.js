@@ -126,7 +126,7 @@ describe( 'Reject', function () {
 
 describe( 'Rejector', function () {
     describe( 'always', function () {
-        it( 'should throw', function () {
+        it( 'throws', function () {
             expect(function () {
                 Reject.always( description );
             } ).toThrow( description );
@@ -134,25 +134,25 @@ describe( 'Rejector', function () {
     } );
 
     describe( 'ifTrue', function () {
-        it( 'should pass for false', function () {
+        it( 'passes for false', function () {
             Reject.ifTrue( false );
         } );
 
-        it( 'should pass for truthy value other than true', function () {
+        it( 'passes for truthy value other than true', function () {
             var truthy = 'I am truthy';
             expect( truthy ).toBeTruthy();
 
             Reject.ifTrue( truthy );
         } );
 
-        it( 'should pass for falsy value other than false', function () {
+        it( 'passes for falsy value other than false', function () {
             var falsy = '';
             expect( falsy ).toBeFalsy();
 
             Reject.ifTrue( falsy );
         } );
 
-        it( 'should throw for true', function () {
+        it( 'throws for true', function () {
             expect(function () {
                 Reject.ifTrue( true, description );
             } ).toThrow( description );
@@ -160,25 +160,25 @@ describe( 'Rejector', function () {
     } );
 
     describe( 'ifFalse', function () {
-        it( 'should pass for true', function () {
+        it( 'passes for true', function () {
             Reject.ifFalse( true );
         } );
 
-        it( 'should pass for truthy value other than true', function () {
+        it( 'passes for truthy value other than true', function () {
             var truthy = 'I am truthy';
             expect( truthy ).toBeTruthy();
 
             Reject.ifFalse( truthy );
         } );
 
-        it( 'should pass for falsy value other than false', function () {
+        it( 'passes for falsy value other than false', function () {
             var falsy = '';
             expect( falsy ).toBeFalsy();
 
             Reject.ifFalse( falsy );
         } );
 
-        it( 'should throw for false', function () {
+        it( 'throws for false', function () {
             expect(function () {
                 Reject.ifFalse( false, description );
             } ).toThrow( description );
@@ -188,11 +188,11 @@ describe( 'Rejector', function () {
     describe( 'ifTruthy', function () {
         var description = 'Exception thrown for ifTruthy';
 
-        it( 'should pass for false', function () {
+        it( 'passes for false', function () {
             Reject.ifTruthy( false );
         } );
 
-        it( 'should throw for truthy value other than true', function () {
+        it( 'throws for truthy value other than true', function () {
             var truthy = 'I am truthy';
             expect( truthy ).toBeTruthy();
 
@@ -201,14 +201,14 @@ describe( 'Rejector', function () {
             } ).toThrow( description );
         } );
 
-        it( 'should pass for falsy value other than false', function () {
+        it( 'passes for falsy value other than false', function () {
             var falsy = '';
             expect( falsy ).toBeFalsy();
 
             Reject.ifTruthy( falsy );
         } );
 
-        it( 'should throw for true', function () {
+        it( 'throws for true', function () {
             expect(function () {
                 Reject.ifTruthy( true, description );
             } ).toThrow( description );
@@ -216,18 +216,18 @@ describe( 'Rejector', function () {
     } );
 
     describe( 'ifFalsy', function () {
-        it( 'should pass for true', function () {
+        it( 'passes for true', function () {
             Reject.ifFalsy( true );
         } );
 
-        it( 'should pass for truthy value other than true', function () {
+        it( 'passes for truthy value other than true', function () {
             var truthy = 'I am truthy';
             expect( truthy ).toBeTruthy();
 
             Reject.ifFalsy( truthy );
         } );
 
-        it( 'should throw for falsy value other than false', function () {
+        it( 'throws for falsy value other than false', function () {
             var falsy = '';
             expect( falsy ).toBeFalsy();
 
@@ -236,7 +236,7 @@ describe( 'Rejector', function () {
             } ).toThrow( description );
         } );
 
-        it( 'should throw for false', function () {
+        it( 'throws for false', function () {
             expect(function () {
                 Reject.ifFalsy( false, description );
             } ).toThrow( description );
@@ -244,21 +244,21 @@ describe( 'Rejector', function () {
     } );
 
     describe( 'ifEmpty', function () {
-        it( 'should pass for non-empty string', function () {
+        it( 'passes for non-empty string', function () {
             Reject.ifEmpty( 'I am not empty' );
         } );
 
-        it( 'should pass for non-empty array', function () {
+        it( 'passes for non-empty array', function () {
             Reject.ifEmpty( ['I', 'am', 'not', 'empty'] );
         } );
 
-        it( 'should throw for empty string', function () {
+        it( 'throws for empty string', function () {
             expect(function () {
                 Reject.ifEmpty( '', description );
             } ).toThrow( description );
         } );
 
-        it( 'should throw for empty array', function () {
+        it( 'throws for empty array', function () {
             expect(function () {
                 Reject.ifEmpty( [], description );
             } ).toThrow( description );
@@ -266,21 +266,21 @@ describe( 'Rejector', function () {
     } );
 
     describe( 'ifNotEmpty', function () {
-        it( 'should pass for empty string', function () {
+        it( 'passes for empty string', function () {
             Reject.ifNotEmpty( '' );
         } );
 
-        it( 'should pass for empty array', function () {
+        it( 'passes for empty array', function () {
             Reject.ifNotEmpty( [] );
         } );
 
-        it( 'should throw for non-empty string', function () {
+        it( 'throws for non-empty string', function () {
             expect(function () {
                 Reject.ifNotEmpty( 'I am not empty', description );
             } ).toThrow( description );
         } );
 
-        it( 'should throw for non-empty array', function () {
+        it( 'throws for non-empty array', function () {
             expect(function () {
                 Reject.ifNotEmpty( ['I', 'am', 'not', 'empty'], description );
             } ).toThrow( description );
@@ -288,25 +288,25 @@ describe( 'Rejector', function () {
     } );
 
     describe( 'ifBlank', function () {
-        it( 'should pass for non-empty string', function () {
+        it( 'passes for non-empty string', function () {
             Reject.ifBlank( 'I am not empty' );
         } );
 
-        it( 'should pass for non-empty string with leading whitespace', function () {
+        it( 'passes for non-empty string with leading whitespace', function () {
             Reject.ifBlank( ' I am not empty' );
         } );
 
-        it( 'should pass for non-empty string with trailing whitespace', function () {
+        it( 'passes for non-empty string with trailing whitespace', function () {
             Reject.ifBlank( 'I am not empty ' );
         } );
 
-        it( 'should throw for empty string', function () {
+        it( 'throws for empty string', function () {
             expect(function () {
                 Reject.ifBlank( '', description );
             } ).toThrow( description );
         } );
 
-        it( 'should throw for non-empty string with whitespaces only', function () {
+        it( 'throws for non-empty string with whitespaces only', function () {
             expect(function () {
                 Reject.ifBlank( ' ', description );
             } ).toThrow( description );
@@ -314,11 +314,11 @@ describe( 'Rejector', function () {
     } );
 
     describe( 'ifNull', function () {
-        it( 'should pass for a value other than null', function () {
+        it( 'passes for a value other than null', function () {
             Reject.ifNull( 'I am not null' );
         } );
 
-        it( 'should throw for null', function () {
+        it( 'throws for null', function () {
             expect(function () {
                 Reject.ifNull( null, description );
             } ).toThrow( description );
@@ -326,11 +326,11 @@ describe( 'Rejector', function () {
     } );
 
     describe( 'ifNotNull', function () {
-        it( 'should pass for null', function () {
+        it( 'passes for null', function () {
             Reject.ifNotNull( null );
         } );
 
-        it( 'should throw for a value other than null', function () {
+        it( 'throws for a value other than null', function () {
             expect(function () {
                 Reject.ifNotNull( 'I am not null', description );
             } ).toThrow( description );
@@ -360,7 +360,7 @@ describe( 'Rejector', function () {
         };
 
         Object.keys( shouldPass ).forEach( function (current) {
-            it( 'should pass for ' + current, function () {
+            it( 'passes for ' + current, function () {
                 Reject.ifNotNumeric( shouldPass[current] );
             } );
         } );
@@ -389,7 +389,7 @@ describe( 'Rejector', function () {
         };
 
         Object.keys( shouldFail ).forEach( function (current) {
-            it( 'should throw for ' + current, function () {
+            it( 'throws for ' + current, function () {
                 expect(function () {
                     Reject.ifNotNumeric( shouldFail[current], description );
                 } ).toThrow( description );
