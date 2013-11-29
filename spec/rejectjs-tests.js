@@ -81,21 +81,20 @@ describe( 'Reject', function () {
         } );
 
         it( 'can replace an existing rejector', function () {
-            // TODO use numberOfInputArguments = 0 when it is exposed
             Reject.registerRejector( rejectorName, function () {
                 return true;
-            } );
+            }, 0 );
 
             // sanity check
             expect(function () {
-                Reject[rejectorName]( true, description );
+                Reject[rejectorName]( description );
             } ).toThrow( description );
 
             Reject.registerRejector( rejectorName, function () {
                 return false;
-            }, false );
+            }, 0 );
 
-            Reject[rejectorName]( true, description );
+            Reject[rejectorName]( description );
         } );
 
         xit( 'can create rejectors with a custom number of input arguments', function () {

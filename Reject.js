@@ -122,10 +122,10 @@ var Reject = (function (undefined) {
          * @param rejectorName The name for the new rejector (suggested pattern is 'ifXyz')
          * @param comparator A function that will receive the input as its first and only argument.
          *     It should return a truthy value if and only if the input shall be rejected.
+         * @param [numberOfInputArguments] Number of arguments expected by the comparator (defaults to 1).
          */
-        'registerRejector': function (rejectorName, comparator) {
-            // TODO expose numberOfInputArguments access for custom rejectors
-            this[rejectorName] = createRejector( comparator );
+        'registerRejector': function (rejectorName, comparator/*, numberOfInputArguments*/) {
+            this[rejectorName] = createRejector.apply( this, Array.prototype.slice.call( arguments, 1 ) );
             return this;
         },
 
