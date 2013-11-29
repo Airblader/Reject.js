@@ -98,26 +98,6 @@ describe( 'Reject', function () {
             Reject[rejectorName]( true, description );
         } );
 
-        it( 'can not replace an existing rejector in safe mode', function () {
-            // TODO use numberOfInputArguments = 0 when it is exposed
-            Reject.registerRejector( rejectorName, function () {
-                return true;
-            } );
-
-            // sanity check
-            expect(function () {
-                Reject[rejectorName]( true, description );
-            } ).toThrow( description );
-
-            Reject.registerRejector( rejectorName, function () {
-                return false;
-            }, true );
-
-            expect(function () {
-                Reject[rejectorName]( true, description );
-            } ).toThrow( description );
-        } );
-
         xit( 'can create rejectors with a custom number of input arguments', function () {
             // TODO
         } );

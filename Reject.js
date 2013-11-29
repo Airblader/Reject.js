@@ -122,17 +122,8 @@ var Reject = (function (undefined) {
          * @param rejectorName The name for the new rejector (suggested pattern is 'ifXyz')
          * @param comparator A function that will receive the input as its first and only argument.
          *     It should return a truthy value if and only if the input shall be rejected.
-         * @param [safeMode] Optional. If set to true, the rejector will only be created if no
-         *     property with that name exists on the Reject object yet.
          */
-        'registerRejector': function (rejectorName, comparator, safeMode) {
-            // TODO safe mode should be a global configuration
-            safeMode = safeMode !== undefined ? safeMode : true;
-            if( safeMode && this[rejectorName] !== undefined ) {
-                // TODO throw exception in this case
-                return this;
-            }
-
+        'registerRejector': function (rejectorName, comparator) {
             // TODO expose numberOfInputArguments access for custom rejectors
             this[rejectorName] = createRejector( comparator );
             return this;
