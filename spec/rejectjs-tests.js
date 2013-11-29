@@ -313,6 +313,30 @@ describe( 'Rejector', function () {
         } );
     } );
 
+    describe( 'ifNull', function () {
+        it( 'should pass for a value other than null', function () {
+            Reject.ifNull( 'I am not null' );
+        } );
+
+        it( 'should throw for null', function () {
+            expect(function () {
+                Reject.ifNull( null, description );
+            } ).toThrow( description );
+        } );
+    } );
+
+    describe( 'ifNotNull', function () {
+        it( 'should pass for null', function () {
+            Reject.ifNotNull( null );
+        } );
+
+        it( 'should throw for a value other than null', function () {
+            expect(function () {
+                Reject.ifNotNull( 'I am not null', description );
+            } ).toThrow( description );
+        } );
+    } );
+
     describe( 'ifNotNumeric', function () {
         // Test cases taken from http://stackoverflow.com/questions/18082/validate-numbers-in-javascript-isnumeric
 

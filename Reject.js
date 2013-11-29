@@ -99,6 +99,16 @@ var Reject = (function (undefined) {
             return trim.call( input ).length === 0;
         } ),
 
+        /** Throws if and only if the input is null (strict equality) */
+        'ifNull': createRejector( function (input) {
+            return input === null;
+        } ),
+
+        /** Throws if and only if the input is not null (strict equality) */
+        'ifNotNull': createRejector( function (input) {
+            return input !== null;
+        } ),
+
         /**
          * Throws if the input is not a numeric value.
          * Note that this allows for string inputs that can be parsed to numbers etc.
