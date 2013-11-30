@@ -74,12 +74,12 @@ var Reject = (function (undefined) {
             return input === false;
         } ),
 
-        /** Throws if and only if the input is truthy (lose equality) */
+        /** Throws if and only if the input is truthy (by logically negating the input twice) */
         'ifTruthy': createRejector( function (input) {
             return !!input;
         } ),
 
-        /** Throws if and only if the input is falsy (lose equality) */
+        /** Throws if and only if the input is falsy (by logically negating the input) */
         'ifFalsy': createRejector( function (input) {
             return !input;
         } ),
