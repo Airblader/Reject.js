@@ -62,7 +62,7 @@ describe( 'Reject', function () {
         } );
     } );
 
-    describe( 'registerRejector', function () {
+    describe( 'createRejector', function () {
         var i = 1,
             rejectorName;
         beforeEach( function () {
@@ -70,7 +70,7 @@ describe( 'Reject', function () {
         } );
 
         it( 'can create a new rejector', function () {
-            Reject.registerRejector( rejectorName, function (input) {
+            Reject.createRejector( rejectorName, function (input) {
                 return input === 42;
             } );
 
@@ -81,7 +81,7 @@ describe( 'Reject', function () {
         } );
 
         it( 'can replace an existing rejector', function () {
-            Reject.registerRejector( rejectorName, function () {
+            Reject.createRejector( rejectorName, function () {
                 return true;
             }, 0 );
 
@@ -90,7 +90,7 @@ describe( 'Reject', function () {
                 Reject[rejectorName]( description );
             } ).toThrow( description );
 
-            Reject.registerRejector( rejectorName, function () {
+            Reject.createRejector( rejectorName, function () {
                 return false;
             }, 0 );
 
