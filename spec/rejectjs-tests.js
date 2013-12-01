@@ -417,6 +417,21 @@ describe( 'Rejector', function () {
         } );
     } );
 
+    describe( 'ifNotNumber', function () {
+        testRejector( Reject.ifNotNumber, {
+            'a number literal': [42]
+        }, false );
+
+        testRejector( Reject.ifNotNumber, {
+            'a string containing a number': ['42'],
+            'an alphanumeric string': ['Hello World'],
+            'a boolean': [true],
+            'an array': [
+                []
+            ]
+        }, true );
+    } );
+
     describe( 'ifNotNumeric', function () {
         // Test cases taken from http://stackoverflow.com/questions/18082/validate-numbers-in-javascript-isnumeric
 

@@ -129,6 +129,11 @@ var Reject = (function (undefined) {
             return left !== right;
         }, 2 ),
 
+        /** Throws if the input is not a number literal */
+        'ifNotNumber': createRejector( function (input) {
+            return typeof input !== 'number';
+        } ),
+
         /**
          * Throws if the input is not a numeric value.
          * Note that this allows for string inputs that can be parsed to numbers etc.
