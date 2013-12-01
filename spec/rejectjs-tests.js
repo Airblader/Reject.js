@@ -472,4 +472,52 @@ describe( 'Rejector', function () {
             ]
         } );
     } );
+
+    describe( 'ifContains', function () {
+        it( 'passes if the element is not contained', function () {
+            Reject.ifContains( [2, 3, 5, 7, 11], 13 );
+        } );
+
+        it( 'throws if the element is contained', function () {
+            expect(function () {
+                Reject.ifContains( [2, 3, 5, 7, 11], 7, description );
+            } ).toThrow( description );
+        } );
+    } );
+
+    describe( 'ifContainsKey', function () {
+        it( 'passes if the key is not contained', function () {
+            Reject.ifContainsKey( {
+                'foo': 42,
+                'bar': 1337
+            }, 'whoami' );
+        } );
+
+        it( 'throws if the key is contained', function () {
+            expect(function () {
+                Reject.ifContainsKey( {
+                    'foo': 42,
+                    'bar': 1337
+                }, 'foo', description );
+            } ).toThrow( description );
+        } );
+    } );
+
+    describe( 'ifContainsValue', function () {
+        it( 'passes if the value is not contained', function () {
+            Reject.ifContainsValue( {
+                'foo': 42,
+                'bar': 1337
+            }, 1729 );
+        } );
+
+        it( 'throws if the value is contained', function () {
+            expect(function () {
+                Reject.ifContainsValue( {
+                    'foo': 42,
+                    'bar': 1337
+                }, 42, description );
+            } ).toThrow( description );
+        } );
+    } );
 } );

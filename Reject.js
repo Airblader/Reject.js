@@ -145,6 +145,38 @@ var Reject = (function (undefined) {
         } ),
 
         /**
+         * Throws if the passed array contains the passed needle.
+         * Note that this will only work for Arrays. For objects, use ifContainsKey/ifContainsValue instead.
+         */
+        'ifContains': createRejector( function (array, needle) {
+            return Array.prototype.indexOf.call( array, needle ) !== -1;
+        }, 2 ),
+
+        /**
+         * Throws if the passed object contains the given key
+         * Note that the key has to be a direct property on the object. Properties in the object's prototype
+         * are not checked.
+         */
+        'ifContainsKey': createRejector( function (object, key) {
+            return Object.prototype.hasOwnProperty.call( object, key );
+        }, 2 ),
+
+        /**
+         * Throws if the passed object contains a key with the given value
+         * Note that only keys which are direct properties on the object are checked. Properties in the object's
+         * prototype are not checked.
+         */
+        'ifContainsValue': createRejector( function (object, value) {
+            for( var key in object ) {
+                if( Object.prototype.hasOwnProperty.call( object, key ) && object[key] === value ) {
+                    return true;
+                }
+            }
+
+            return false;
+        }, 2 ),
+
+        /**
          * Negates the following rejector
          * By calling not() before a rejector the logic will be inversed.
          * Note that not() will only affect the immediately following rejector.
