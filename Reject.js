@@ -129,6 +129,11 @@ var Reject = (function (undefined) {
             return typeof input === 'string';
         } ),
 
+        /** Throws if the input is a boolean (neither true nor false) */
+        'ifBoolean': createRejector( function (input) {
+            return input === true || input === false;
+        } ),
+
         /**
          * Negates the following rejector
          * By calling not() before a rejector the logic will be inversed.

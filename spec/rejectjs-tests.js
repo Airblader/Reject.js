@@ -431,4 +431,24 @@ describe( 'Rejector', function () {
             'a string literal': ['Test']
         }, false );
     } );
+
+    describe( 'ifBoolean', function () {
+        testRejector( Reject.ifBoolean, {
+            'a number literal': [42],
+            'a string literal': ['Foobar'],
+            'null': [null],
+            'undefined': [undefined],
+            'an object': [
+                {}
+            ],
+            'an array': [
+                []
+            ]
+        }, true );
+
+        testRejector( Reject.ifBoolean, {
+            'true': [true],
+            'false': [false]
+        }, false );
+    } );
 } );
