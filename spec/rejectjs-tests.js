@@ -32,6 +32,25 @@ describe( 'Reject', function () {
         } ).toThrow( '<no description>' );
     } );
 
+    describe( 'not', function () {
+        it( 'inverts the rejector', function () {
+            Reject.not().always();
+        } );
+
+        it( 'only affects the next rejector', function () {
+            expect(function () {
+                Reject.not().always().always( description );
+            } ).toThrow( description );
+        } );
+
+        it( 'works in the middle of a chain', function () {
+            Reject
+                .ifTrue( false )
+                .not().ifTrue( true )
+                .ifTrue( false );
+        } );
+    } );
+
     describe( 'off', function () {
         it( 'prevents throwing', function () {
             Reject.off().always();
