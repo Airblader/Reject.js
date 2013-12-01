@@ -420,7 +420,7 @@ describe( 'Rejector', function () {
     describe( 'ifNotNumber', function () {
         testRejector( Reject.ifNotNumber, {
             'a number literal': [42]
-        }, false );
+        }, true );
 
         testRejector( Reject.ifNotNumber, {
             'a string containing a number': ['42'],
@@ -429,66 +429,56 @@ describe( 'Rejector', function () {
             'an array': [
                 []
             ]
-        }, true );
+        }, false );
     } );
 
     describe( 'ifNotNumeric', function () {
         // Test cases taken from http://stackoverflow.com/questions/18082/validate-numbers-in-javascript-isnumeric
 
-        var shouldPass = {
-            'a negative string literal': '-10',
-            'the zero string literal': '0',
-            'a positive string literal': '5',
-            'a negative number literal': -16,
-            'the zero literal': 0,
-            'a positive number literal': 32,
-            'an octal number string literal': '040',
-            'an octal number literal': 0144,
-            'a hexadecimal string literal': '0xFF',
-            'a hexadecimal number literal': 0xFFF,
-            'a negative floating point string literal': '-1.6',
-            'a positive floating point string literal': '4.536',
-            'a negative floating point number literal': -2.6,
-            'a positive floating point number literal': 3.1415,
-            'an exponential notation number literal': 8e5,
-            'an exponential notation string literal': '123e-2'
-        };
+        testRejector( Reject.ifNotNumeric, {
+            'a negative string literal': ['-10'],
+            'the zero string literal': ['0'],
+            'a positive string literal': ['5'],
+            'a negative number literal': [-16],
+            'the zero literal': [0],
+            'a positive number literal': [32],
+            'an octal number string literal': ['040'],
+            'an octal number literal': [0144],
+            'a hexadecimal string literal': ['0xFF'],
+            'a hexadecimal number literal': [0xFFF],
+            'a negative floating point string literal': ['-1.6'],
+            'a positive floating point string literal': ['4.536'],
+            'a negative floating point number literal': [-2.6],
+            'a positive floating point number literal': [3.1415],
+            'an exponential notation number literal': [8e5],
+            'an exponential notation string literal': ['123e-2']
+        }, true );
 
-        Object.keys( shouldPass ).forEach( function (current) {
-            it( 'passes for ' + current, function () {
-                Reject.ifNotNumeric( shouldPass[current] );
-            } );
-        } );
-
-        var shouldFail = {
-            'an empty string': '',
-            'an empty string with whitespaces': '    ',
-            'a string with tabs': '\t\t',
-            'an alphanumeric string': 'abc123',
-            'a string without any digits': 'ajnsovppjc',
-            'true': true,
-            'false': false,
-            'a string with a trailing floating point number': 'bcdef5.2',
-            'a string with a leading floating point number': '7.2aspa',
-            'undefined': undefined,
-            'null': null,
-            'NaN': NaN,
-            'Infinity': Infinity,
-            'POSITIVE_INFINITY': Number.POSITIVE_INFINITY,
-            'NEGATIVE_INFINITY': Number.NEGATIVE_INFINITY,
-            'a date object': new Date( 2012, 8, 22 ),
-            'an empty object': {},
-            'an empty array': [],
-            'a function': function () {
-            }
-        };
-
-        Object.keys( shouldFail ).forEach( function (current) {
-            it( 'throws for ' + current, function () {
-                expect(function () {
-                    Reject.ifNotNumeric( shouldFail[current], description );
-                } ).toThrow( description );
-            } );
-        } );
+        testRejector( Reject.ifNotNumeric, {
+            'an empty string': [''],
+            'an empty string with whitespaces': ['    '],
+            'a string with tabs': ['\t\t'],
+            'an alphanumeric string': ['abc123'],
+            'a string without any digits': ['ajnsovppjc'],
+            'true': [true],
+            'false': [false],
+            'a string with a trailing floating point number': ['bcdef5.2'],
+            'a string with a leading floating point number': ['7.2aspa'],
+            'undefined': [undefined],
+            'null': [null],
+            'NaN': [NaN],
+            'Infinity': [Infinity],
+            'POSITIVE_INFINITY': [Number.POSITIVE_INFINITY],
+            'NEGATIVE_INFINITY': [Number.NEGATIVE_INFINITY],
+            'a date object': [new Date( 2012, 8, 22 )],
+            'an empty object': [
+                {}
+            ],
+            'an empty array': [
+                []
+            ],
+            'a function': [function () {
+            }]
+        }, false );
     } );
 } );

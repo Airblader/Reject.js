@@ -1,14 +1,14 @@
-var testRejector = function (rejector, spec, expectThrow) {
+var testRejector = function (rejector, spec, shouldPass) {
     Object.keys( spec ).forEach( function (current) {
         var test = function () {
             rejector.apply( this, spec[current].concat( description ) );
         };
 
-        it( ( expectThrow ? 'throws' : 'passes' ) + ' for ' + current, function () {
-            if( expectThrow ) {
-                expect( test ).toThrow( description );
-            } else {
+        it( ( shouldPass ? 'passes' : 'throws' ) + ' for ' + current, function () {
+            if( shouldPass ) {
                 test();
+            } else {
+                expect( test ).toThrow( description );
             }
         } );
     } );
