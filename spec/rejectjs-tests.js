@@ -397,12 +397,8 @@ describe( 'Rejector', function () {
         }, false );
     } );
 
-    describe( 'ifNotString', function () {
-        testRejector( Reject.ifNotString, {
-            'a string literal': ['Test']
-        }, true );
-
-        testRejector( Reject.ifNotString, {
+    describe( 'ifString', function () {
+        testRejector( Reject.ifString, {
             'a number literal': [42],
             'a boolean': [false],
             'null': [null],
@@ -410,6 +406,10 @@ describe( 'Rejector', function () {
             'an array': [
                 []
             ]
+        }, true );
+
+        testRejector( Reject.ifString, {
+            'a string literal': ['Test']
         }, false );
     } );
 } );

@@ -124,9 +124,9 @@ var Reject = (function (undefined) {
             return !isNaN( parseFloat( input ) ) && isFinite( input );
         } ),
 
-        /** Throws if the input is not a string literal */
-        'ifNotString': createRejector( function (input) {
-            return typeof input !== 'string';
+        /** Throws if the input is a string literal */
+        'ifString': createRejector( function (input) {
+            return typeof input === 'string';
         } ),
 
         /**
