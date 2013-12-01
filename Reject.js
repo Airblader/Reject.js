@@ -117,11 +117,11 @@ var Reject = (function (undefined) {
         } ),
 
         /**
-         * Throws if the input is not a numeric value.
+         * Throws if the input is a numeric value.
          * Note that this allows for string inputs that can be parsed to numbers etc.
          */
-        'ifNotNumeric': createRejector( function (input) {
-            return isNaN( parseFloat( input ) ) || !isFinite( input );
+        'ifNumeric': createRejector( function (input) {
+            return !isNaN( parseFloat( input ) ) && isFinite( input );
         } ),
 
         /** Throws if the input is not a string literal */

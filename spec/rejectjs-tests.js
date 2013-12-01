@@ -347,29 +347,10 @@ describe( 'Rejector', function () {
         }, false );
     } );
 
-    describe( 'ifNotNumeric', function () {
+    describe( 'ifNumeric', function () {
         // Test cases taken from http://stackoverflow.com/questions/18082/validate-numbers-in-javascript-isnumeric
 
-        testRejector( Reject.ifNotNumeric, {
-            'a negative string literal': ['-10'],
-            'the zero string literal': ['0'],
-            'a positive string literal': ['5'],
-            'a negative number literal': [-16],
-            'the zero literal': [0],
-            'a positive number literal': [32],
-            'an octal number string literal': ['040'],
-            'an octal number literal': [0144],
-            'a hexadecimal string literal': ['0xFF'],
-            'a hexadecimal number literal': [0xFFF],
-            'a negative floating point string literal': ['-1.6'],
-            'a positive floating point string literal': ['4.536'],
-            'a negative floating point number literal': [-2.6],
-            'a positive floating point number literal': [3.1415],
-            'an exponential notation number literal': [8e5],
-            'an exponential notation string literal': ['123e-2']
-        }, true );
-
-        testRejector( Reject.ifNotNumeric, {
+        testRejector( Reject.ifNumeric, {
             'an empty string': [''],
             'an empty string with whitespaces': ['    '],
             'a string with tabs': ['\t\t'],
@@ -394,6 +375,25 @@ describe( 'Rejector', function () {
             ],
             'a function': [function () {
             }]
+        }, true );
+
+        testRejector( Reject.ifNumeric, {
+            'a negative string literal': ['-10'],
+            'the zero string literal': ['0'],
+            'a positive string literal': ['5'],
+            'a negative number literal': [-16],
+            'the zero literal': [0],
+            'a positive number literal': [32],
+            'an octal number string literal': ['040'],
+            'an octal number literal': [0144],
+            'a hexadecimal string literal': ['0xFF'],
+            'a hexadecimal number literal': [0xFFF],
+            'a negative floating point string literal': ['-1.6'],
+            'a positive floating point string literal': ['4.536'],
+            'a negative floating point number literal': [-2.6],
+            'a positive floating point number literal': [3.1415],
+            'an exponential notation number literal': [8e5],
+            'an exponential notation string literal': ['123e-2']
         }, false );
     } );
 
