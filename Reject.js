@@ -1,7 +1,8 @@
 var Reject = (function (undefined) {
     'use strict';
 
-    var isOn = true;
+    var isOn = true,
+        isNot = false;
 
     var RejectException = (function () {
         var RejectException = function (message) {
@@ -42,10 +43,11 @@ var Reject = (function (undefined) {
 
             var comparatorArgs = Array.prototype.slice.call( args, 0, numberOfInputArguments ),
                 description = args.length !== numberOfInputArguments ? args[args.length - 1] : undefined;
-            if( comparator.apply( this, comparatorArgs ) ) {
+            if( comparator.apply( this, comparatorArgs ) === !isNot ) {
                 throw new RejectException( description );
             }
 
+            isNot = false;
             return this;
         };
     };
@@ -146,6 +148,16 @@ var Reject = (function (undefined) {
         'ifNotString': createRejector( function (input) {
             return typeof input !== 'string';
         } ),
+
+        /**
+         * Negates the following rejector
+         * By calling not() before a rejector the logic will be inversed.
+         * Note that not() will only affect the immediately following rejector.
+         */
+        'not': function () {
+            isNot = true;
+            return this;
+        },
 
         /**
          * Create (or replace) a rejector.
