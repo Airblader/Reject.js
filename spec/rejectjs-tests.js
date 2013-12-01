@@ -352,24 +352,24 @@ describe( 'Rejector', function () {
     } );
 
     describe( 'ifNumber', function () {
-        testRejector( Reject.ifNumber, {
+        testRejectorPasses( Reject.ifNumber, {
             'a string containing a number': ['42'],
             'an alphanumeric string': ['Hello World'],
             'a boolean': [true],
             'an array': [
                 []
             ]
-        }, true );
+        } );
 
-        testRejector( Reject.ifNumber, {
+        testRejectorThrows( Reject.ifNumber, {
             'a number literal': [42]
-        }, false );
+        } );
     } );
 
     describe( 'ifNumeric', function () {
         // Test cases taken from http://stackoverflow.com/questions/18082/validate-numbers-in-javascript-isnumeric
 
-        testRejector( Reject.ifNumeric, {
+        testRejectorPasses( Reject.ifNumeric, {
             'an empty string': [''],
             'an empty string with whitespaces': ['    '],
             'a string with tabs': ['\t\t'],
@@ -394,9 +394,9 @@ describe( 'Rejector', function () {
             ],
             'a function': [function () {
             }]
-        }, true );
+        } );
 
-        testRejector( Reject.ifNumeric, {
+        testRejectorThrows( Reject.ifNumeric, {
             'a negative string literal': ['-10'],
             'the zero string literal': ['0'],
             'a positive string literal': ['5'],
@@ -413,11 +413,11 @@ describe( 'Rejector', function () {
             'a positive floating point number literal': [3.1415],
             'an exponential notation number literal': [8e5],
             'an exponential notation string literal': ['123e-2']
-        }, false );
+        } );
     } );
 
     describe( 'ifString', function () {
-        testRejector( Reject.ifString, {
+        testRejectorPasses( Reject.ifString, {
             'a number literal': [42],
             'a boolean': [false],
             'null': [null],
@@ -425,15 +425,15 @@ describe( 'Rejector', function () {
             'an array': [
                 []
             ]
-        }, true );
+        } );
 
-        testRejector( Reject.ifString, {
+        testRejectorThrows( Reject.ifString, {
             'a string literal': ['Test']
-        }, false );
+        } );
     } );
 
     describe( 'ifBoolean', function () {
-        testRejector( Reject.ifBoolean, {
+        testRejectorPasses( Reject.ifBoolean, {
             'a number literal': [42],
             'a string literal': ['Foobar'],
             'null': [null],
@@ -444,16 +444,16 @@ describe( 'Rejector', function () {
             'an array': [
                 []
             ]
-        }, true );
+        } );
 
-        testRejector( Reject.ifBoolean, {
+        testRejectorThrows( Reject.ifBoolean, {
             'true': [true],
             'false': [false]
-        }, false );
+        } );
     } );
 
     describe( 'ifArray', function () {
-        testRejector( Reject.ifArray, {
+        testRejectorPasses( Reject.ifArray, {
             'a number literal': [42],
             'a string literal': ['Foo'],
             'null': [null],
@@ -461,15 +461,15 @@ describe( 'Rejector', function () {
             'an object': [
                 {}
             ]
-        }, true );
+        } );
 
-        testRejector( Reject.ifArray, {
+        testRejectorThrows( Reject.ifArray, {
             'an empty array': [
                 []
             ],
             'a non-empty array': [
                 [42, 1337]
             ]
-        }, false );
+        } );
     } );
 } );

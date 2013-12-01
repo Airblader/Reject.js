@@ -13,3 +13,11 @@ var testRejector = function (rejector, spec, shouldPass) {
         } );
     } );
 };
+
+var testRejectorPasses = function (rejector, spec) {
+    return testRejector.call( this, rejector, spec, true );
+};
+
+var testRejectorThrows = function (rejector, spec) {
+    return testRejector.call( this, rejector, spec, false );
+};
