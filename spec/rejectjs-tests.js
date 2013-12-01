@@ -451,4 +451,25 @@ describe( 'Rejector', function () {
             'false': [false]
         }, false );
     } );
+
+    describe( 'ifArray', function () {
+        testRejector( Reject.ifArray, {
+            'a number literal': [42],
+            'a string literal': ['Foo'],
+            'null': [null],
+            'undefined': [undefined],
+            'an object': [
+                {}
+            ]
+        }, true );
+
+        testRejector( Reject.ifArray, {
+            'an empty array': [
+                []
+            ],
+            'a non-empty array': [
+                [42, 1337]
+            ]
+        }, false );
+    } );
 } );

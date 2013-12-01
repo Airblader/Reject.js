@@ -134,6 +134,12 @@ var Reject = (function (undefined) {
             return input === true || input === false;
         } ),
 
+        /** Throws if the input is an array */
+        'ifArray': createRejector( function (input) {
+            return Array.isArray !== undefined
+                ? Array.isArray( input ) : Object.prototype.toString().call( input ) === '[object Array]';
+        } ),
+
         /**
          * Negates the following rejector
          * By calling not() before a rejector the logic will be inversed.
