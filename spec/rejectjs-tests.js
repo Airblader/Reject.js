@@ -481,4 +481,20 @@ describe( 'Rejector', function () {
             }]
         }, false );
     } );
+
+    describe( 'ifNotString', function () {
+        testRejector( Reject.ifNotString, {
+            'a string literal': ['Test']
+        }, true );
+
+        testRejector( Reject.ifNotString, {
+            'a number literal': [42],
+            'a boolean': [false],
+            'null': [null],
+            'undefined': [undefined],
+            'an array': [
+                []
+            ]
+        }, false );
+    } );
 } );

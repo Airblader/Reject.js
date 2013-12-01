@@ -142,6 +142,11 @@ var Reject = (function (undefined) {
             return isNaN( parseFloat( input ) ) || !isFinite( input );
         } ),
 
+        /** Throws if the input is not a string literal */
+        'ifNotString': createRejector( function (input) {
+            return typeof input !== 'string';
+        } ),
+
         /**
          * Create (or replace) a rejector.
          * @param rejectorName The name for the new rejector (suggested pattern is 'ifXyz')
