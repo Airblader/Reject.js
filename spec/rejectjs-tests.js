@@ -332,18 +332,18 @@ describe( 'Rejector', function () {
         } );
     } );
 
-    describe( 'ifNotNumber', function () {
-        testRejector( Reject.ifNotNumber, {
-            'a number literal': [42]
-        }, true );
-
-        testRejector( Reject.ifNotNumber, {
+    describe( 'ifNumber', function () {
+        testRejector( Reject.ifNumber, {
             'a string containing a number': ['42'],
             'an alphanumeric string': ['Hello World'],
             'a boolean': [true],
             'an array': [
                 []
             ]
+        }, true );
+
+        testRejector( Reject.ifNumber, {
+            'a number literal': [42]
         }, false );
     } );
 
