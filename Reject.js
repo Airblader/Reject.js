@@ -1,3 +1,46 @@
+/**
+ * Reject.js
+ *  Ingo Bürk
+ *  http://www.github.com/Airblader/Reject.js
+ *
+ * Reject.js allows you to easily reject invalid input in your methods. It provides a number
+ * of built-in "rejectors" that will throw an exception (RejectException) if the validation fails.
+ * You can also pass a custom description to the rejecto which will be used as the exception message,
+ * though this is optional (but recommended).
+ *
+ * Example Usage:
+ *
+ *  function saveCustomer(customerData) {
+ *      Reject
+ *          .ifNull( customerData, "customerData must not be null" )
+ *          .ifBlank( customerData.getFirstName(), "First name must not be blank" );
+ *  }
+ *
+ *  By calling Reject.off() you can turn off Reject.js altogether (the current state is determined at runtime, so the effect
+ *  will be global from the point in time this is called forward), with Reject.on() you can turn it back on. The first is especcialy
+ *  useful if you want Reject.js to only work in a development environment, but not in production (since it would require
+ *  proper exception handling).
+ *  Reject.js is designed to have a fluent API, so all calls can be chained for comfort.
+ *
+ *  Furthermore, Reject.js allows you to create custom rejectors for more complex situations. Your rejector
+ *  can take as many arguments as you want (default 1, if you need more it more the number of arguments needs
+ *  to be specified as the last argument) and should return true if the data should be rejected and false otherwise.
+ *
+ *  Example:
+ *
+ *  Reject.createRejector( "ifInvalidCustomerData", function (customerData, requiresAddress ) {
+ *      if( customerData === null ) {
+ *          return true;
+ *      }
+ *
+ *      if( requiresAddress && customerData.getAddress() === undefined ) {
+ *          return true;
+ *      }
+ *
+ *      return false;
+ *  }, 2 );
+ *
+ */
 var Reject = (function (undefined) {
     'use strict';
 
@@ -31,6 +74,7 @@ var Reject = (function (undefined) {
          * @param input... variable number of input arguments passed to the comparator
          * @param [description] optional message used in the thrown exception
          */
+        // TODO add a property "comparator" to access the comparator without throwing (i.e. for chaining)
         return function (/*input...[, description]*/) {
             if( !isOn ) {
                 return;
