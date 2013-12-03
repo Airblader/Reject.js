@@ -176,6 +176,30 @@ var Reject = (function (undefined) {
             return false;
         }, 2 ),
 
+        'ifLessThan': createRejector( function (argument, compareTo) {
+            return argument < compareTo;
+        }, 2 ),
+
+        'ifGreaterThan': createRejector( function (argument, compareTo) {
+            return argument > compareTo;
+        }, 2 ),
+
+        'ifLessThanOrEqualTo': createRejector( function (argument, compareTo) {
+            return argument <= compareTo;
+        }, 2 ),
+
+        'ifGreaterThanOrEqualTo': createRejector( function (argument, compareTo) {
+            return argument >= compareTo;
+        }, 2 ),
+
+        'ifPositive': createRejector( function (input) {
+            return input > 0;
+        } ),
+
+        'ifNegative': createRejector( function (input) {
+            return input < 0;
+        } ),
+
         /**
          * Negates the following rejector
          * By calling not() before a rejector the logic will be inversed.

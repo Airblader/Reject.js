@@ -520,4 +520,69 @@ describe( 'Rejector', function () {
             } ).toThrow( description );
         } );
     } );
+
+    describe( 'ifLessThan', function () {
+        testRejectorPasses( Reject.ifLessThan, {
+            'a greater number': [1337, 42],
+            'an equal number': [42, 42]
+        } );
+
+        testRejectorThrows( Reject.ifLessThan, {
+            'a smaller number': [42, 1337]
+        } );
+    } );
+
+    describe( 'ifGreaterThan', function () {
+        testRejectorPasses( Reject.ifGreaterThan, {
+            'a smaller number': [42, 1337],
+            'an equal number': [42, 42]
+        } );
+
+        testRejectorThrows( Reject.ifGreaterThan, {
+            'a greater number': [1337, 42]
+        } );
+    } );
+
+    describe( 'ifLessThanOrEqualTo', function () {
+        testRejectorPasses( Reject.ifLessThanOrEqualTo, {
+            'a greater number': [1337, 42]
+        } );
+
+        testRejectorThrows( Reject.ifLessThanOrEqualTo, {
+            'a smaller number': [42, 1337],
+            'an equal number': [42, 42]
+        } );
+    } );
+
+    describe( 'ifGreaterThanOrEqualTo', function () {
+        testRejectorPasses( Reject.ifGreaterThanOrEqualTo, {
+            'a smaller number': [42, 1337]
+        } );
+
+        testRejectorThrows( Reject.ifGreaterThanOrEqualTo, {
+            'a greater number': [1337, 42],
+            'an equal number': [42, 42]
+        } );
+    } );
+
+    describe( 'ifPositive', function () {
+        testRejectorPasses( Reject.ifPositive, {
+            'zero': [0],
+            'a negative number': [-1]
+        } );
+        testRejectorThrows( Reject.ifPositive, {
+            'a positive number': [1]
+        } );
+    } );
+
+    describe( 'ifNegative', function () {
+        testRejectorPasses( Reject.ifNegative, {
+            'zero': [0],
+            'a positive number': [1]
+        } );
+
+        testRejectorThrows( Reject.ifNegative, {
+            'a negative number': [-1]
+        } );
+    } );
 } );
