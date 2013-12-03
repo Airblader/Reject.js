@@ -110,7 +110,6 @@ var Reject = (function (undefined) {
          * Throws if and only if left and right are equal (strict equality)
          * Note that this will not work with objects (and therefore arrays, …) as the references will be compared.
          */
-        // TODO provide a method to compare contents
         'ifEquals': createRejector( function (left, right) {
             return left === right;
         }, 2 ),

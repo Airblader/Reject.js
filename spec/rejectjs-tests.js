@@ -116,8 +116,16 @@ describe( 'Reject', function () {
             Reject[rejectorName]( description );
         } );
 
-        xit( 'can create rejectors with a custom number of input arguments', function () {
-            // TODO
+        it( 'can create rejectors with a custom number of input arguments', function () {
+            Reject.createRejector( rejectorName, function (a, b, c) {
+                return a + b + c !== 10;
+            }, 3 );
+
+            Reject[rejectorName]( 2, 2, 6 );
+            Reject[rejectorName]( 1, 8, 1 );
+            expect(function () {
+                Reject[rejectorName]( 0, 0, 0, description );
+            } ).toThrow( description );
         } );
     } );
 } );
