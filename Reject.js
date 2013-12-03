@@ -175,26 +175,32 @@ var Reject = (function (undefined) {
             return false;
         }, 2 ),
 
+        /** Throws if and only if the provided argument is smaller than the value provided as compareTo */
         'ifLessThan': createRejector( function (argument, compareTo) {
             return argument < compareTo;
         }, 2 ),
 
+        /** Throws if and only if the provided argument is greater than the value provided as compareTo */
         'ifGreaterThan': createRejector( function (argument, compareTo) {
             return argument > compareTo;
         }, 2 ),
 
+        /** Throws if and only if the provided argument is smaller than or equal to the value provided as compareTo */
         'ifLessThanOrEqualTo': createRejector( function (argument, compareTo) {
             return argument <= compareTo;
         }, 2 ),
 
+        /** Throws if and only if the provided argument is greater than or equal to the value provided as compareTo */
         'ifGreaterThanOrEqualTo': createRejector( function (argument, compareTo) {
             return argument >= compareTo;
         }, 2 ),
 
+        /** Throws if and only if the input is positive */
         'ifPositive': createRejector( function (input) {
             return input > 0;
         } ),
 
+        /** Throws if and only if the input is negative */
         'ifNegative': createRejector( function (input) {
             return input < 0;
         } ),
